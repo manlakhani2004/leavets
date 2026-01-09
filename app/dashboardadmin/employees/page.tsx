@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const employeeSchema = z.object({
   username: z.string().min(1, "Username is required"),
-  email: z.email("Invalid email"), 
+  email: z.email("Invalid email"),
   password: z.string().min(6, "Password must be at least 6 characters"),
   confirmPassword: z.string().min(6),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -25,7 +25,7 @@ type EmployeeFormData = z.infer<typeof employeeSchema>;
 function page() {
   const [open, setopen] = React.useState<boolean>(false);
   const defaultLeaveBalance = leaveBalance as LeaveBalance[];
-  const [employees, setEmployees] = useState<User[]>(getEmployees());
+  const [employees, setEmployees] = useState<User[]>([]);
   const [openEdit, setOpenEdit] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [allUser, setAllUser] = useState<User[]>([]);
@@ -48,11 +48,14 @@ function page() {
   });
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const StoredAllUsers = localStorage.getItem("users");
-    let users: User[] = StoredAllUsers ? JSON.parse(StoredAllUsers) : [];
+    const users: User[] = StoredAllUsers ? JSON.parse(StoredAllUsers) : [];
+
     setAllUser(users);
-    setEmployees(getEmployees());
-  }, [open,openDelete]);
+    setEmployees(users.filter((u) => u.role === "employee"));
+  }, [open, openDelete]);
 
   function getEmployees() {
     const StoredAllUsers = localStorage.getItem("users");
@@ -152,19 +155,18 @@ function page() {
       toast.error("employee Not Found");
       return;
     }
-    const user = allUser.find((emp)=>emp.email == employee.email);
-    if(!user)
-    {
+    const user = allUser.find((emp) => emp.email == employee.email);
+    if (!user) {
       toast.error("Something went wrong during delete employee")
       return;
     }
     const updatedUser = allUser.filter((emp) => emp.email !== employee.email)
-    
+
     localStorage.setItem("users", JSON.stringify(updatedUser));
     setAllUser(updatedUser)
     setOpenDelete(false)
 
-    
+
     const StoredAllUsers = localStorage.getItem("users");
     let users: User[] = StoredAllUsers ? JSON.parse(StoredAllUsers) : [];
     setAllUser(users);
