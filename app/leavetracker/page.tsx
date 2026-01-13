@@ -100,7 +100,7 @@ export default function LeaveTracker() {
         localStorage.setItem("users", JSON.stringify(tempAllUser));
         setAllUser(tempAllUser)
         setEmployee({ ...currentuser });
-        //create leave request
+     
         if (!fromDate || !toDate) {
             toast.error("Please select valid dates");
             return
@@ -108,6 +108,7 @@ export default function LeaveTracker() {
         const leaveRequest: LeaveRequest = {
             id: Date.now() + Math.floor(Math.random() * 1000),
             employeeName: currentuser.username,
+            employeeEmail:currentuser.email,
             leaveType,
             fromDate,
             toDate,
@@ -116,7 +117,7 @@ export default function LeaveTracker() {
             days
         };
 
-        // save leave requests
+
         const StoredleavesRequests = localStorage.getItem("leaveRequests");
         const leavesRequests: LeaveRequest[] = StoredleavesRequests ? JSON.parse(StoredleavesRequests) : [];
 

@@ -29,6 +29,7 @@ function page() {
   const [openEdit, setOpenEdit] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [allUser, setAllUser] = useState<User[]>([]);
+  const [employeeToDelete, setEmployeeToDelete] = useState<User | null>(null);
 
   const [editInfo, setEditInfo] = useState({
     username: "",
@@ -57,12 +58,7 @@ function page() {
     setEmployees(users.filter((u) => u.role === "employee"));
   }, [open, openDelete]);
 
-  function getEmployees() {
-    const StoredAllUsers = localStorage.getItem("users");
-    let users: User[] = StoredAllUsers ? JSON.parse(StoredAllUsers) : [];
-    const employees = users.filter((user) => user.role === "employee");
-    return employees;
-  }
+
 
   function handleCreateEmployee(data: EmployeeFormData) {
     const employeeData: User = {
@@ -104,18 +100,13 @@ function page() {
     setOpenEdit(true);
   };
 
-
-  const onChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
     setEditInfo((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-
 
   const handleEditProfile = (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,7 +131,6 @@ function page() {
     const updatedUsers = [...allUser];
     updatedUsers[userIndex] = updatedUser;
 
-
     localStorage.setItem("users", JSON.stringify(updatedUsers));
 
     setAllUser(updatedUsers);
@@ -148,35 +138,35 @@ function page() {
     setOpenEdit(false);
   };
 
-
-  const handleDeleteEmployee = (employee: User) => {
+  const openDeleteModal = (employee: User) => {
+    setEmployeeToDelete(employee);
     setOpenDelete(true);
-    if (!allUser) {
-      toast.error("employee Not Found");
+  };
+
+  const confirmDeleteEmployee = () => {
+    if (!employeeToDelete || !allUser) {
+      toast.error("Employee Not Found");
       return;
     }
-    const user = allUser.find((emp) => emp.email == employee.email);
+
+    const user = allUser.find((emp) => emp.email === employeeToDelete.email);
     if (!user) {
-      toast.error("Something went wrong during delete employee")
+      toast.error("Something went wrong during delete employee");
       return;
     }
-    const updatedUser = allUser.filter((emp) => emp.email !== employee.email)
 
+    const updatedUser = allUser.filter((emp) => emp.email !== employeeToDelete.email);
     localStorage.setItem("users", JSON.stringify(updatedUser));
-    setAllUser(updatedUser)
-    setOpenDelete(false)
-
-
-    const StoredAllUsers = localStorage.getItem("users");
-    let users: User[] = StoredAllUsers ? JSON.parse(StoredAllUsers) : [];
-    setAllUser(users);
+    setAllUser(updatedUser);
+    setOpenDelete(false);
+    setEmployeeToDelete(null);
     toast.success("Employee deleted successfully");
   };
 
   return (
     <div>
-      <div className=' mt-4 flex justify-between items-center'>
-        <h1 className=' text-3xl  font-semibold'>ManageEmployees</h1>
+      <div className='mt-4 flex justify-between items-center text-gray-200'>
+        <h1 className='text-3xl font-semibold'>ManageEmployees</h1>
         <button
           className="cursor-pointer font-semibold bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg font-medium transition-colors shadow-lg"
           onClick={() => setopen(true)}
@@ -241,8 +231,7 @@ function page() {
         </Modal>
       )}
 
-
-      {openEdit &&
+      {openEdit && (
         <Modal isOpen={openEdit} onClose={() => setOpenEdit(false)}>
           <form
             onSubmit={handleEditProfile}
@@ -276,7 +265,7 @@ function page() {
               />
             </div>
 
-            <div className="flex  items-center">
+            <div className="flex items-center">
               <label htmlFor="password">Password:</label>
               <input
                 type="text"
@@ -284,10 +273,10 @@ function page() {
                 id="password"
                 value={editInfo.password}
                 onChange={onChangeHandler}
-
                 className="py-3 w-full px-4 bg-slate-700 text-white rounded-lg"
               />
             </div>
+
             <div className="flex gap-2 items-center">
               <label htmlFor="role">Role:</label>
               <input
@@ -308,38 +297,40 @@ function page() {
             </button>
           </form>
         </Modal>
-      }
+      )}
 
-      {/* {
-        openDelete &&
+      {openDelete && (
         <Modal isOpen={openDelete} onClose={() => setOpenDelete(false)}>
-          <div className="p-6 text-center">
-            <h2 className="text-xl font-semibold text-red-400 mb-4">
-              Delete Account
+          <div className="p-8 bg-slate-800 rounded-xl text-center">
+            <h2 className="text-2xl font-semibold text-red-400 mb-4">
+              Delete Employee
             </h2>
-            <p className="mb-6 text-slate-300">
-              Are you sure? This action cannot be undone.
+            <p className="mb-6 text-slate-300 text-lg">
+              Are you want to delete {employeeToDelete?.username}?.
             </p>
 
             <div className="flex justify-center gap-4">
               <button
-                onClick={() => setOpenDelete(false)}
-                className="px-5 py-2 bg-slate-600 rounded-lg text-white"
+                onClick={() => {
+                  setOpenDelete(false);
+                  setEmployeeToDelete(null);
+                }}
+                className="px-6 py-2 bg-slate-600 hover:bg-slate-500 rounded-lg text-white font-semibold transition-colors"
               >
                 Cancel
               </button>
               <button
-                // onClick={()=>handleDeleteEmployee()}
-                className="px-5 py-2 bg-red-600 rounded-lg text-white"
+                onClick={confirmDeleteEmployee}
+                className="px-6 py-2 bg-red-600 hover:bg-red-500 rounded-lg text-white font-semibold transition-colors"
               >
                 Delete
               </button>
             </div>
           </div>
         </Modal>
-      } */}
+      )}
 
-      <h1 className=' text-2xl font-semibold mt-10'>All Employees </h1>
+      <h1 className='text-2xl font-semibold mt-10 text-gray-200'>All Employees</h1>
       <div className="overflow-x-auto mt-2 bg-slate-800 rounded-2xl shadow-xl border border-slate-700">
         <table className="w-full">
           <thead className="bg-slate-900 border-b border-slate-700">
@@ -350,18 +341,38 @@ function page() {
             </tr>
           </thead>
           <tbody>
-            {employees.map((employee) => (
-              <tr key={employee.email} className="border-t border-slate-700">
-                <td className="px-4 py-4 text-white">{employee.username}</td>
-                <td className="px-4 py-4">{employee.email}</td>
-                <td className="px-4 py-4">
-                  <div className="flex gap-4">
-                    <button className="px-7 py-2 border-2 font-semibold cursor-pointer border-amber-300 hover:bg-amber-100 hover:text-gray-800 transition-all rounded-2xl" onClick={() => openEditModal(employee)} >Edit</button>
-                    <button className="px-5 py-2 border-2 font-semibold cursor-pointer border-red-400 hover:bg-red-300 transition-all hover:text-gray-800 rounded-2xl" onClick={() => handleDeleteEmployee(employee)}>Delete</button>
-                  </div>
+            {employees.length > 0 ? (
+              employees.map((employee) => (
+                <tr key={employee.email} className="border-t border-slate-700">
+                  <td className="px-4 py-4 text-gray-200">{employee.username}</td>
+                  <td className="px-4 py-4 text-gray-200">{employee.email}</td>
+                  <td className="px-4 py-4">
+                    <div className="flex gap-4">
+                      <button
+                        className="px-7 py-2 border-2 text-gray-200 font-semibold cursor-pointer border-amber-300 hover:bg-amber-100 hover:text-gray-800 transition-all rounded-2xl"
+                        onClick={() => openEditModal(employee)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="px-5 py-2 border-2 text-gray-200 font-semibold cursor-pointer border-red-400 hover:bg-red-300 transition-all hover:text-gray-800 rounded-2xl"
+                        onClick={() => openDeleteModal(employee)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={3} className="text-center py-4">
+                  <h2 className="text-gray-200 text-lg">
+                    No Employees available
+                  </h2>
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
