@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { LeaveRequest } from "@/app/types/leave"
 import { User } from "../types/user";
 import { number } from "zod";
+import { required } from "zod/v4-mini";
 export default function LeaveList() {
 
 
@@ -62,6 +63,8 @@ export default function LeaveList() {
     const employee = allUser.find(
       (emp) => emp.email === requested.employeeEmail
     );
+    const empIndex = allUser.findIndex((emp)=>emp.email == requested.employeeEmail);
+    // const otherEmployees = allUser.filter((emp)=>emp.email === requested.employeeEmail);
 
     if (!employee) {
       toast.error("Employee not found");
@@ -82,8 +85,9 @@ export default function LeaveList() {
       return;
     }
 
-    employee.leaveBalance[leaveTypeIndex].balance += requested.days;
-
+    employee.leaveBalance[leaveTypeIndex].used -= requested.days;
+    allUser[empIndex]= employee
+    
     notRequested.push(requested);
     setLeaveRequests(notRequested);
     localStorage.setItem("leaveRequests", JSON.stringify(notRequested));

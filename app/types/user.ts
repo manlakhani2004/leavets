@@ -10,6 +10,8 @@ export interface User {
 export interface LeaveBalance {
     name: string,
     description: string,
-    leaveType: "sickLeave" | "casualLeave" | "earnedLeave";
-    balance: number
+    leaveType: string;
+    total: number,
+    used: number
 }
+

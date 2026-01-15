@@ -1,5 +1,5 @@
 
-export type LeaveType = "sickLeave" | "casualLeave" | "earnedLeave";
+export type LeaveType = string;
 
 export interface LeaveRequest{
       id: number,

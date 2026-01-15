@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+    redirect("/auth/login")
   return (
     <div className="min-h-screen bg-slate-900 ">
       <Navbar />

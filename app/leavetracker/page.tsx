@@ -79,28 +79,29 @@ export default function LeaveTracker() {
             toast.error("Invalid leave type")
             return;
         }
-
-        const availableBalance = currentuser.leaveBalance[leaveIndex].balance;
+        // console.log(leaveType);
+        // console.log(currentuser.leaveBalance[leaveIndex])
+        const availableBalance = currentuser.leaveBalance[leaveIndex].total - currentuser.leaveBalance[leaveIndex].used;
         const remainingBalance = availableBalance - days;
-
+        // console.log(remainingBalance);
+        // console.log(availableBalance);
         if (remainingBalance < 0) {
 
             toast.error("Insufficient leave balance")
             return;
         }
 
-        //Update leave balance for currentUser
-        currentuser.leaveBalance[leaveIndex].balance = remainingBalance;
+        currentuser.leaveBalance[leaveIndex].used += days;
         localStorage.setItem("currentuser", JSON.stringify(currentuser));
 
-        //update leave balance for users 
+       
         const userIndex = allUser.findIndex((user) => user.email == currentuser.email)
         const tempAllUser = allUser;
         tempAllUser[userIndex] = currentuser;
         localStorage.setItem("users", JSON.stringify(tempAllUser));
         setAllUser(tempAllUser)
         setEmployee({ ...currentuser });
-     
+
         if (!fromDate || !toDate) {
             toast.error("Please select valid dates");
             return
@@ -108,7 +109,7 @@ export default function LeaveTracker() {
         const leaveRequest: LeaveRequest = {
             id: Date.now() + Math.floor(Math.random() * 1000),
             employeeName: currentuser.username,
-            employeeEmail:currentuser.email,
+            employeeEmail: currentuser.email,
             leaveType,
             fromDate,
             toDate,
@@ -124,7 +125,12 @@ export default function LeaveTracker() {
         leavesRequests.push(leaveRequest);
         localStorage.setItem("leaveRequests", JSON.stringify(leavesRequests));
         setUpcomingLeaves(getUpcommingLeaves());
-        toast.success("Leave Requested Successfully..")
+        toast.success("Leave Requested Successfully..");
+
+        setLeaveType("sickLeave");
+        setFromDate(new Date());
+        setToDate(new Date());
+        setReason("");
         setopen(false);
     }
 
@@ -215,7 +221,6 @@ export default function LeaveTracker() {
                                     />
                                 </div>
                             </div>
-
 
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="reason" className="text-sm font-medium text-slate-300">

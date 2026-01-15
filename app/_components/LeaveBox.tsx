@@ -2,17 +2,10 @@ import { FcLeave } from "react-icons/fc";
 import { LeaveBalance} from "@/app/types/user"
 
 export default function LeaveBox({ leaveBalance }:{leaveBalance:LeaveBalance[]}) {
-  const LeaveProvided = {
-    sickLeave: 8,
-    casualLeave: 10,
-    earnedLeave: 13,
-  };
-
   return (
     <div className="flex flex-wrap gap-4 sm:gap-6">
       {leaveBalance.map((leave) => {
-        const booked = LeaveProvided[leave.leaveType] - leave.balance;
-
+        
         return (
           <div
             key={leave.leaveType}
@@ -25,10 +18,10 @@ export default function LeaveBox({ leaveBalance }:{leaveBalance:LeaveBalance[]})
               <FcLeave />
             </p>
             <p className="text-white font-medium">
-              {leave.balance} days available
+              {leave.total} days available
             </p>
             <p className="text-slate-400 text-sm">
-              {booked} days taken
+              {leave.used} days taken
             </p>
           </div>
         );
