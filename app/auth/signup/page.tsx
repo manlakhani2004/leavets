@@ -100,7 +100,6 @@ export default function Page() {
             </p>
 
             <div className="mt-8 inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-rose-500/10 border border-rose-400/30 backdrop-blur-sm">
-
               <p className="text-sm font-medium text-rose-300">
                 Only Admin or HR can create employee accounts
               </p>
@@ -117,14 +116,14 @@ export default function Page() {
               Create Account
             </h2>
 
-            <p className="text-red-400 text-md text-center mb-2">
+            <p className=" text-red-400/60 text-md text-center mb-2">
               Only Admin accounts Creation is allowed here.
             </p>
 
             <input
               {...register("username")}
               placeholder="Username"
-              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
+              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none"
             />
             {errors.username && (
               <p className="text-red-400 text-sm w-full">
@@ -136,7 +135,7 @@ export default function Page() {
             <input
               {...register("email")}
               placeholder="Email"
-              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
+              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none "
             />
             {errors.email && (
               <p className="text-red-400 text-sm w-full">
@@ -149,7 +148,7 @@ export default function Page() {
               type="password"
               {...register("password")}
               placeholder="Password"
-              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
+              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none "
             />
             {errors.password && (
               <p className="text-red-400 text-sm w-full">
@@ -161,7 +160,7 @@ export default function Page() {
               type="password"
               {...register("confirmPassword")}
               placeholder="Confirm Password"
-              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
+              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none"
             />
             {errors.confirmPassword && (
               <p className="text-red-400 text-sm w-full">
@@ -177,8 +176,8 @@ export default function Page() {
             </button>
 
             <Link href="/auth/login" className="text-slate-400 text-sm">
-              Already have an account?{" "}
-              <span className="text-blue-400">Login</span>
+              Already have an account? 
+              <span className="text-blue-400"> Login</span>
             </Link>
           </form>
         </div>

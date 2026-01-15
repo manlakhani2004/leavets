@@ -1,9 +1,9 @@
 "use client";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import {LeaveRequest} from "@/app/types/leave";
-import {UpcommingLeavesProps} from "@/app/types/props"
+import { LeaveRequest } from "@/app/types/leave";
+import { UpcommingLeavesProps } from "@/app/types/props"
 
-export default function UpcommingLeaves({ upcomingLeavesHandler, upcomingLeaves, setUpcomingLeaves }:UpcommingLeavesProps) {
+export default function UpcommingLeaves({ upcomingLeavesHandler, upcomingLeaves, setUpcomingLeaves }: UpcommingLeavesProps) {
 
   useEffect(() => {
     setUpcomingLeaves(upcomingLeavesHandler());
@@ -58,6 +58,19 @@ export default function UpcommingLeaves({ upcomingLeavesHandler, upcomingLeaves,
               </td>
             </tr>
           ))}
+
+          {
+            upcomingLeaves.length == 0 && (
+              <tr>
+                <td colSpan={3} className="text-center py-4">
+                    <div className=" text-lg text-gray-400 py-3 font-semibold text-center">
+                      No Upcoming Leaves Available
+                    </div>   
+                </td>
+              </tr>
+
+            )
+          }
         </tbody>
       </table>
     </div>

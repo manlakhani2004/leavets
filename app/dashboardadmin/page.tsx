@@ -11,7 +11,7 @@ export default function page() {
       const storedUser = localStorage.getItem("currentuser");
       const user: User | null = storedUser ? JSON.parse(storedUser) : null
       if (!user) {
-         router.push("/auth/login");
+         router.push("/auth/signin");
          return;
       }
       if (user.role != "admin") {

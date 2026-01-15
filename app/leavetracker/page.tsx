@@ -29,7 +29,7 @@ export default function LeaveTracker() {
         const StoredUser = localStorage.getItem("currentuser");
         const user: User | null = StoredUser ? JSON.parse(StoredUser) : null;
         if (!user) {
-            router.push("/auth/login");
+            router.push("/auth/signin");
             return;
         }
         if (user.role != "employee") {
@@ -160,7 +160,7 @@ export default function LeaveTracker() {
                     <LeaveBox leaveBalance={employee.leaveBalance ?? []} />
 
                     <button
-                        className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white py-2.5 px-6 rounded-lg font-medium transition-colors shadow-lg"
+                        className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white py-3 px-7 rounded-lg font-semibold transition-colors shadow-lg"
                         onClick={() => setopen(true)}
                     >
                         Apply Leave
@@ -178,7 +178,7 @@ export default function LeaveTracker() {
             {open && (
                 <Modal isOpen={open} onClose={() => setopen(false)}>
                     <div className="text-white">
-                        <form onSubmit={handleSubmit} className="bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-2xl space-y-5 max-w-md border border-slate-700">
+                        <form onSubmit={handleSubmit} className="bg-slate-800 flex flex-col gap-5">
                             <h3 className="text-2xl font-bold text-blue-300 mb-4">Apply for Leave</h3>
 
 

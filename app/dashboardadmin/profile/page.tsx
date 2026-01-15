@@ -128,9 +128,7 @@ function page() {
                             {user.username}
                         </h2>
                         <p className="text-slate-400">{user.email}</p>
-                        <span className="mt-1 inline-block px-3 py-1 text-xs bg-green-600/20 rounded-full">
-                            {user.role.toUpperCase()}
-                        </span>
+
                     </div>
 
                     <div className="flex gap-3">
@@ -205,7 +203,7 @@ function page() {
                 <Modal isOpen={openEdit} onClose={() => setOpenEdit(false)}>
                     <form
                         onSubmit={handleEditProfile}
-                        className="p-8 bg-slate-800 rounded-xl flex flex-col gap-4"
+                        className="p-4 bg-slate-800 rounded-xl flex flex-col gap-4"
                     >
                         <h2 className="text-2xl font-bold text-blue-300">
                             Edit Profile
@@ -219,7 +217,7 @@ function page() {
                                 id="username"
                                 value={editInfo.username}
                                 onChange={onChangeHandler}
-                                className="py-3 ml-4 w-full px-4 bg-slate-700 text-white rounded-lg"
+                                className="py-3 ml-4 w-full px-4 bg-slate-700 text-white rounded-lg focus:outline-none"
                             />
                         </div>
 
@@ -231,7 +229,7 @@ function page() {
                                 id="email"
                                 value={editInfo.email}
                                 disabled
-                                className="py-3 ml-5 px-4 w-full bg-red-500 text-white rounded-lg"
+                                className="py-3 ml-5 px-4 w-full bg-red-500 text-white rounded-lg focus:outline-none"
                             />
                         </div>
 
@@ -244,7 +242,7 @@ function page() {
                                 value={editInfo.password}
                                 onChange={onChangeHandler}
 
-                                className="py-3 w-full px-4 bg-slate-700 text-white rounded-lg"
+                                className="py-3 w-full px-4 bg-slate-700 text-white rounded-lg focus:outline-none"
                             />
                         </div>
                         <div className="flex gap-2 items-center">
@@ -255,13 +253,13 @@ function page() {
                                 id="role"
                                 value={editInfo.role}
                                 disabled
-                                className="py-3 ml-7 px-4 w-full bg-red-500 text-white rounded-lg"
+                                className="py-3 ml-7 px-4 w-full bg-red-500 text-white rounded-lg focus:outline-none"
                             />
                             </div>
 
                             <button
                                 type="submit"
-                                className="py-3 bg-blue-600 hover:bg-blue-500 rounded-lg text-white"
+                                className="py-3 bg-blue-600 hover:bg-blue-500 rounded-lg text-white "
                             >
                                 Update Profile
                             </button>

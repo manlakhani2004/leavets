@@ -180,7 +180,7 @@ function page() {
           <div className="flex justify-center items-center flex-1 w-full">
             <form
               onSubmit={handleSubmit(handleCreateEmployee)}
-              className="flex flex-col items-center w-full max-w-md mx-auto gap-4 p-8 bg-slate-800 rounded-2xl shadow-xl"
+              className="flex flex-col items-center w-full max-w-md mx-auto gap-4 p-4 bg-slate-800 rounded-2xl "
             >
               <h2 className="text-blue-300 font-bold text-2xl sm:text-3xl mb-2">
                 Create Employee Account
@@ -235,7 +235,7 @@ function page() {
         <Modal isOpen={openEdit} onClose={() => setOpenEdit(false)}>
           <form
             onSubmit={handleEditProfile}
-            className="p-8 bg-slate-800 rounded-xl flex flex-col gap-4"
+            className="p-4 bg-slate-800 rounded-xl flex flex-col gap-4"
           >
             <h2 className="text-2xl font-bold text-blue-300">
               Edit Employee

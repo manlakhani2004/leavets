@@ -1,5 +1,6 @@
 import { FcLeave } from "react-icons/fc";
 import { LeaveBalance} from "@/app/types/user"
+import { TbSunset2 } from "react-icons/tb";
 
 export default function LeaveBox({ leaveBalance }:{leaveBalance:LeaveBalance[]}) {
   return (
@@ -14,8 +15,8 @@ export default function LeaveBox({ leaveBalance }:{leaveBalance:LeaveBalance[]})
             <p className="text-blue-300 font-semibold text-lg capitalize">
               {leave.leaveType.replace(/([A-Z])/g, ' $1').trim()}
             </p>
-            <p className="text-4xl">
-              <FcLeave />
+            <p className=" text-3xl rounded-xl text-rose-300 p-2 bg-rose-500/10 border border-rose-400/30 backdrop-blur-sm">
+             <TbSunset2 />
             </p>
             <p className="text-white font-medium">
               {leave.total} days available

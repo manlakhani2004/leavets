@@ -9,6 +9,7 @@ import { MdAccessTime } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { AiOutlineMenu } from "react-icons/ai";
 
 interface SidebarProps {
   currentTab: string;
@@ -22,7 +23,7 @@ export default function Sidebar({ currentTab, setcurrentTab }: SidebarProps) {
   function handleSignOut() {
     localStorage.removeItem("currentuser");
     toast.success("Log Out Successfully");
-    router.push("/auth/login");
+    router.push("/auth/signin");
   }
 
   function changeTab(tab: string) {
@@ -37,7 +38,7 @@ export default function Sidebar({ currentTab, setcurrentTab }: SidebarProps) {
         onClick={() => setIsOpen(true)}
         className="sm:hidden fixed top-4 left-4 z-50 p-2 bg-blue-600 text-white rounded-lg shadow-md"
       >
-        ☰
+        <AiOutlineMenu/>
       </button>
 
       <div
@@ -47,7 +48,7 @@ export default function Sidebar({ currentTab, setcurrentTab }: SidebarProps) {
         transition-transform duration-300
       ${isOpen ? "translate-x-0" : "-translate-x-full sm:translate-x-0"}`}
       >
-        <p className="font-bold text-2xl text-blue-300 mb-4">
+        <p className="font-bold text-3xl text-center text-blue-300 mb-4">
           Admin Dashboard
         </p>
 

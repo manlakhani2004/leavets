@@ -100,30 +100,30 @@ export default function Page() {
             </div>
 
 
-            <div className="flex justify-center items-stretch gap-6 pt-8">
-              <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 flex-1 max-w-xs">
+            <div className="flex justify-center items-stretch  pt-8">
+              <div className="flex flex-col items-center text-center  rounded-2xl  flex-1 max-w-xs">
                 <div className="mb-4 text-indigo-400">
                   <Calendar size={40} strokeWidth={1.5} />
                 </div>
-                <span className="text-sm font-semibold text-white/80">
+                <span className="text-sm  text-white/80">
                   Track leaves easily
                 </span>
               </div>
 
-              <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 flex-1 max-w-xs">
+              <div className="flex flex-col items-center text-center rounded-2xl  flex-1 max-w-xs">
                 <div className="mb-4 text-indigo-400">
                   <CheckCircle size={40} strokeWidth={1.5} />
                 </div>
-                <span className="text-sm font-semibold text-white/80">
+                <span className="text-sm  text-white/80">
                   Instant approvals
                 </span>
               </div>
 
-              <div className="flex flex-col items-center text-center p-3 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 flex-1 max-w-xs">
+              <div className="flex flex-col items-center text-center   flex-1 max-w-xs">
                 <div className="mb-4 text-indigo-400">
                   <Briefcase size={40} strokeWidth={1.5} />
                 </div>
-                <span className="text-sm font-semibold text-white/80">
+                <span className="text-sm  text-white/80">
                   Manage teams
                 </span>
               </div>
@@ -149,7 +149,7 @@ export default function Page() {
               {...register("email")}
               type="email"
               placeholder="Email"
-              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
+              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none"
             />
             {errors.email && (
               <p className="text-red-400 text-sm w-full">
@@ -162,7 +162,7 @@ export default function Page() {
               {...register("password")}
               type="password"
               placeholder="Password"
-              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
+              className="py-3 px-4 bg-slate-700 border border-slate-600 rounded-lg w-full text-white placeholder-slate-400 focus:outline-none "
             />
             {errors.password && (
               <p className="text-red-400 text-sm w-full">

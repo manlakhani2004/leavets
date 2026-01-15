@@ -6,12 +6,21 @@ export default function Modal({ isOpen, onClose, children }:ModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-      <div className="bg-slate-800 rounded-xl p-6 relative w-full max-w-md shadow-2xl border border-slate-700">
+    <div onClick={onClose} className="fixed inset-0  bg-black/70 flex items-center justify-center z-50 p-4">
+      <div onClick={(e) => e.stopPropagation()} className="bg-slate-800 rounded-xl p-8 relative w-full max-w-md shadow-2xl border border-slate-700">
         
         <button
           onClick={onClose}
-          className="absolute top-1 right-1 text-slate-400 text-3xl hover:text-white  transition-colors"
+          className=" absolute top-4 right-3
+          cursor-pointer font-semibold
+    flex items-center justify-center
+    w-9 h-9
+    rounded-lg
+    bg-slate-700/70
+    text-slate-300
+    hover:bg-red-500
+    hover:text-white
+    transition-all duration-200"
         >
          <IoCloseSharp />
         </button>
